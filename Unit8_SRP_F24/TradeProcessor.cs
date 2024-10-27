@@ -53,6 +53,15 @@ namespace SingleResponsibilityPrinciple
                 LogMessage("WARN: Trade amount on line {0} not a valid integer: '{1}'", currentLine, fields[1]);
                 return false;
             }
+            else 
+            {
+                // user story 1: As a user, I expect negative lot sizes to be rejected.
+                if (int.Parse(fields[1]) <= 0)
+                {
+                    LogMessage("WARN: Trade amount on line {0} can not be negative or zero: '{1}'", currentLine, fields[1]);
+                    return false;
+                }
+            }
 
             decimal tradePrice;
             if (!decimal.TryParse(fields[2], out tradePrice))
@@ -60,6 +69,16 @@ namespace SingleResponsibilityPrinciple
                 LogMessage("WARN: Trade price on line {0} not a valid decimal: '{1}'", currentLine, fields[2]);
                 return false;
             }
+            else
+            {
+                // user story 2: As a user, I expect negative trade prices to be rejected.
+                if (decimal.Parse(fields[2]) <= 0)
+                {
+                    LogMessage("WARN: Trade price on line {0} can not be negative or zero: '{1}'", currentLine, fields[2]);
+                    return false;
+                }
+            }
+
             return true;
         }
 
