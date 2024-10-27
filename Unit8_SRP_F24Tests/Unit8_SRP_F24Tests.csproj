@@ -10,10 +10,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="badtrade_negative_lot.txt" />
+    <None Remove="badtrade_negative_price.txt" />
+    <None Remove="badtrade_no_trades.txt" />
+    <None Remove="badtrade_too_few_columns.txt" />
+    <None Remove="badtrade_too_many_columns.txt" />
     <None Remove="goodtrades.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="badtrade_negative_price.txt" />
+    <EmbeddedResource Include="badtrade_too_few_columns.txt" />
+    <EmbeddedResource Include="badtrade_negative_lot.txt" />
+    <EmbeddedResource Include="badtrade_no_trades.txt" />
+    <EmbeddedResource Include="badtrade_too_many_columns.txt" />
     <EmbeddedResource Include="goodtrades.txt" />
   </ItemGroup>
 

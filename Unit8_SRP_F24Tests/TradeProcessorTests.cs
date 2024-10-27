@@ -47,5 +47,90 @@ namespace SingleResponsibilityPrinciple.Tests
             int countAfter = CountDbRecords();
             Assert.AreEqual(countBefore + 1, countAfter);
         }
+
+        [TestMethod()]
+        [ExpectedException(typeof(System.ArgumentNullException))]
+        public void TestTradeFileExists()
+        {
+            //Arrange
+            var tradeStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Unit8_SRP_F24Tests.not_real_file.txt");
+            var tradeProcessor = new TradeProcessor();
+            tradeProcessor.ProcessTrades(tradeStream);
+        }
+
+        [TestMethod()]
+        public void TestTooFewColumns()
+        {
+            //Arrange
+            var tradeStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Unit8_SRP_F24Tests.badtrade_too_few_columns.txt");
+            var tradeProcessor = new TradeProcessor();
+
+            //Act
+            int countBefore = CountDbRecords();
+            tradeProcessor.ProcessTrades(tradeStream);
+            //Assert
+            int countAfter = CountDbRecords();
+            Assert.AreEqual(countBefore, countAfter);
+        }
+
+        [TestMethod()]
+        public void TestTooManyColumns()
+        {
+            //Arrange
+            var tradeStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Unit8_SRP_F24Tests.badtrade_too_many_columns.txt");
+            var tradeProcessor = new TradeProcessor();
+
+            //Act
+            int countBefore = CountDbRecords();
+            tradeProcessor.ProcessTrades(tradeStream);
+            //Assert
+            int countAfter = CountDbRecords();
+            Assert.AreEqual(countBefore, countAfter);
+        }
+
+        [TestMethod()]
+        public void TestNegativeLotSize()
+        {
+            //Arrange
+            var tradeStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Unit8_SRP_F24Tests.badtrade_negative_lot.txt");
+            var tradeProcessor = new TradeProcessor();
+
+            //Act
+            int countBefore = CountDbRecords();
+            tradeProcessor.ProcessTrades(tradeStream);
+            //Assert
+            int countAfter = CountDbRecords();
+            Assert.AreEqual(countBefore, countAfter);
+        }
+        [TestMethod()]
+        public void TestNegativePrice()
+        {
+            //Arrange
+            var tradeStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Unit8_SRP_F24Tests.badtrade_negative_price.txt");
+            var tradeProcessor = new TradeProcessor();
+
+            //Act
+            int countBefore = CountDbRecords();
+            tradeProcessor.ProcessTrades(tradeStream);
+            //Assert
+            int countAfter = CountDbRecords();
+            Assert.AreEqual(countBefore, countAfter);
+        }
+
+
+        [TestMethod()]
+        public void TestNoTradesInFile()
+        {
+            //Arrange
+            var tradeStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Unit8_SRP_F24Tests.badtrade_no_trades.txt");
+            var tradeProcessor = new TradeProcessor();
+
+            //Act
+            int countBefore = CountDbRecords();
+            tradeProcessor.ProcessTrades(tradeStream);
+            //Assert
+            int countAfter = CountDbRecords();
+            Assert.AreEqual(countBefore, countAfter);
+        }
     }
 }
